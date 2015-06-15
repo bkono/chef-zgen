@@ -41,12 +41,11 @@ users.flatten.each do |u|
     action :create
   end
 
-  git "zgen_home/repo" do
+  git "#{zgen_home}/repo" do
     repository 'https://github.com/tarjoilija/zgen.git'
     revision 'master'
     user u
     action :sync
   end
-
-
 end
+
