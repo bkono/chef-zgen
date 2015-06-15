@@ -26,8 +26,11 @@ package 'git'
 users = []
 users << node['current_user'] if node['current_user']
 users << node['zgen']['users']
+log "Set users array to: #{users}"
 
 users.flatten.each do |u|
+  log "zgen iterating over user #{u}"
+
   user u do
     action :modify
     shell shell_loc
