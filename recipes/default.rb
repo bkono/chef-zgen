@@ -68,8 +68,8 @@ users.flatten.each do |user|
     action :create
   end
 
-  execute "Run zgen update" do
-    command "zgen update && source #{user_home}/.zshrc"
+  file "#{zgen_home}/init.zsh" do
+    action :delete
     only_if template_run.updated_by_last_action?
   end
 end
