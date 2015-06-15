@@ -33,11 +33,6 @@ log "Set users array to: #{users}"
 users.flatten.each do |user|
   log "zgen iterating over user #{user}"
 
-  # execute "Set shell to zsh" do
-  #   command "chsh -s #{shell_loc}"
-  #   only_if platform_family?("mac_os_x")
-  # end
-
   user "#{user}" do
     action :modify
     shell shell_loc
