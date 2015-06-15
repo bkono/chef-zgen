@@ -56,7 +56,7 @@ users.flatten.each do |user|
     action :sync
   end
 
-  template "#{user_home}/.zshrc" do
+  template_run = template "#{user_home}/.zshrc" do
     source "zshrc.erb"
     owner user
     mode 0644
@@ -66,6 +66,11 @@ users.flatten.each do |user|
       zgen_load_entries: (node['zgen']['load'] || [])
     })
     action :create
+  end
+
+  execute "Run zgen update" do
+    command "zgen update && source #{user_home}/.zshrc"
+    only_if template_run.updated_by_last_action?
   end
 end
 
