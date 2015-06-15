@@ -20,6 +20,7 @@ when "rhel", "fedora" then
 when "darwin" then
   shell_loc = '/usr/local/bin/zsh'
 end
+log "shell location is now set to: #{shell_loc}"
 
 package 'git'
 
@@ -31,6 +32,11 @@ log "Set users array to: #{users}"
 
 users.flatten.each do |user|
   log "zgen iterating over user #{user}"
+
+  # execute "Set shell to zsh" do
+  #   command "chsh -s #{shell_loc}"
+  #   only_if platform_family?("mac_os_x")
+  # end
 
   user "#{user}" do
     action :modify
