@@ -31,7 +31,7 @@ log "Set users array to: #{users}"
 users.flatten.each do |u|
   log "zgen iterating over user #{u}"
 
-  user u do
+  user "#{u}" do
     action :modify
     shell shell_loc
   end
