@@ -1,0 +1,34 @@
+# vim: fdm=marker sw=2 ts=2 sts=2 tw=80 nofoldenable
+
+# Zgen {{{{
+  source <%= @zgen_repo %>/zgen.zsh
+
+  if ! zgen saved; then
+    echo "Creating a zgen save state"
+
+    # completions
+    zgen load zsh-users/zsh-completions src
+
+    <% if @omz_entries.size > 0 %>
+    # oh-my-zsh
+    zgen oh-my-zsh
+      <% @omz_entries.each do |entry| %>
+    zgen oh-my-zsh plugins/<%= entry %>
+      <% end -%>
+    <% end -%>
+
+    # plugins
+    <% @zgen_load_entries.each do |entry| %>
+    zgen load <%= entry %>
+    <% end -%>
+
+    # save it all
+    zgen save
+  fi
+# }}}}
+
+# zshrc.local sourcing {{{{
+  if [ -e "$HOME/.zshrc.local" ]; then
+    source "$HOME/.zshrc.local"
+  fi
+# }}}}

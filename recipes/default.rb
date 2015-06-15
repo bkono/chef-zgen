@@ -34,6 +34,7 @@ users.flatten.each do |u|
   end
 
   zgen_home = "/home/#{u}/.zgen"
+  zgen_repo = "/home/#{u}/.zgen/repo"
 
   directory zgen_home do
     owner u
@@ -41,11 +42,23 @@ users.flatten.each do |u|
     action :create
   end
 
-  git "#{zgen_home}/repo" do
+  git zgen_repo do
     repository 'https://github.com/tarjoilija/zgen.git'
     revision 'master'
     user u
     action :sync
+  end
+
+  template "/home/#{u}/.zshrc" do
+    source "zshrc.erb"
+    owner u
+    mode 0644
+    variables({
+      zgen_repo: zgen_repo,
+      omz_entries: (node['zgen']['oh-my-zsh'] || []),
+      zgen_load_entries: (node['zgen']['load'] || [])
+    })
+    action :create
   end
 end
 
