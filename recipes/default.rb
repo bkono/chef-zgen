@@ -24,23 +24,25 @@ end
 package 'git'
 
 users = []
-users << node['current_user'] if node['current_user']
+users << node['current_user']
 users << node['zgen']['users']
+users.compact!
 log "Set users array to: #{users}"
 
-users.flatten.each do |u|
-  log "zgen iterating over user #{u}"
+users.flatten.each do |user|
+  log "zgen iterating over user #{user}"
 
-  user "#{u}" do
+  user "#{user}" do
     action :modify
     shell shell_loc
   end
 
-  zgen_home = "/home/#{u}/.zgen"
-  zgen_repo = "/home/#{u}/.zgen/repo"
+  user_home = node['etc']['passwd'][user]['dir']
+  zgen_home = "#{user_home}/.zgen"
+  zgen_repo = "#{zgen_home}/repo"
 
   directory zgen_home do
-    owner u
+    owner user
     mode '0755'
     action :create
   end
@@ -48,13 +50,13 @@ users.flatten.each do |u|
   git zgen_repo do
     repository 'https://github.com/tarjoilija/zgen.git'
     revision 'master'
-    user u
+    user user
     action :sync
   end
 
-  template "/home/#{u}/.zshrc" do
+  template "/home/#{user}/.zshrc" do
     source "zshrc.erb"
-    owner u
+    owner user
     mode 0644
     variables({
       zgen_repo: zgen_repo,
