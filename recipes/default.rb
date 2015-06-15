@@ -17,7 +17,7 @@ when "debian" then
 when "rhel", "fedora" then
   package "zsh-html"
   shell_loc = '/bin/zsh'
-when "darwin" then
+when "mac_os_x" then
   shell_loc = '/usr/local/bin/zsh'
 end
 log "shell location is now set to: #{shell_loc}"
