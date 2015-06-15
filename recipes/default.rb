@@ -44,6 +44,7 @@ users.flatten.each do |user|
   directory zgen_home do
     owner user
     mode '0755'
+    recursive true
     action :create
   end
 
@@ -54,7 +55,7 @@ users.flatten.each do |user|
     action :sync
   end
 
-  template "/home/#{user}/.zshrc" do
+  template "#{user_home}/.zshrc" do
     source "zshrc.erb"
     owner user
     mode 0644
