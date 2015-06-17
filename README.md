@@ -1,6 +1,6 @@
 # zgen cookbook
 
-Brain-dead simple, chef-based install of [zgen](https://github.com/tarjoilija/zgen) and a customized
+Brain-dead simple, chef-based install of zsh, [zgen](https://github.com/tarjoilija/zgen) and a customized
 zshrc. The starting incarnation of this is focused on use with 
 [kitchenplan](https://github.com/kitchenplan/kitchenplan), specifically for pulling down pieces of
 my newly modular [dotfiles](https://github.com/bkono/dotfiles) (2.0).
@@ -14,7 +14,9 @@ approach.
 _This section is under rapid development. Don't be disappointed when things have significantly
 deviated from this readme._
 
-Currently there is a single, default recipe intended to be included in standard chef form:
+Currently there is a single, default recipe. It utilizes several attributes, listed later in the
+readme, to install zsh, chsh to zsh, install zgen, and create a zshrc for a set of known users. It is 
+intended to be included in standard chef form:
 
 #### Recipes
 
