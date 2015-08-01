@@ -70,7 +70,7 @@ users.flatten.each do |user|
 
   file "#{zgen_home}/init.zsh" do
     action :delete
-    only_if template_run.updated_by_last_action?
+    only_if { template_run.updated_by_last_action? }
   end
 end
 
