@@ -14,7 +14,9 @@ approach.
 _This section is under rapid development. Don't be disappointed when things have significantly
 deviated from this readme._
 
-Currently there is a single, default recipe. It utilizes several attributes, listed later in the
+~~Currently there is a single, default recipe.~~ There are two main recipes to use.
+
+The first is zgen::default. It utilizes several attributes, listed later in the
 readme, to install zsh, chsh to zsh, install zgen, and create a zshrc for a set of known users. It is 
 intended to be included in standard chef form:
 
@@ -31,6 +33,11 @@ include 'zgen::default'
   "recipe[zgen::default]"
 }
 ```
+
+The second is zgen::kitchenplan. This one will likely undergo some changes, but its current purpose
+in life is to first run default, and then follow up with a symlinking of any modules pulled down by
+zgen following the .symlink pattern. As an example, when pulling [bkono-dotfiles](https://github.com/bkono/dotfiles) 
+ .gitconfig, .vim directory, etc, will all be correctly linked in each users home directory.
 
 #### Attributes
 
