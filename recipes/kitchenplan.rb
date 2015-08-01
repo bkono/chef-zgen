@@ -13,7 +13,9 @@ zgen_users.each do |user|
   Dir.glob("#{zgen_home}/**/*.symlink").each do |sym|
     name = sym.split('/').last.chomp('.symlink').prepend('.')
     target_file = "#{user_home}/#{name}"
-    unless File.file? target_file
+    if File.exists?(target_file) && !File.symlink?(target_file)
+      log "Skipping symlink of #{sym} to #{target_file} because target exists, and is not a symlink"
+    else
       link target_file do
         to sym
       end
