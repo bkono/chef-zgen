@@ -10,7 +10,7 @@ module Zgen
       "#{user_home}/.zgen"
     end
 
-    def zgen_repo 
+    def zgen_repo
       "#{zgen_home}/repo"
     end
 

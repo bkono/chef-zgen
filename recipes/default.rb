@@ -51,12 +51,15 @@ zgen_users.each do |user|
     action :sync
   end
 
+  # scoping issues require this to get set in the recipe, to be available to the template variables
+  repo_dir = zgen_repo
+
   template_run = template "#{user_home}/.zshrc" do
     source "zshrc.erb"
     owner user
     mode 0644
     variables({
-      zgen_repo: zgen_repo,
+      zgen_repo: repo_dir,
       omz_entries: (node['zgen']['oh-my-zsh'] || []),
       zgen_load_entries: (node['zgen']['load'] || [])
     })
